@@ -26,9 +26,9 @@
   "scripts": {
     "build": "next build",
     "clean": "rimraf .next .vercel",
-    "dev:next": "npx @cloudflare/next-on-pages --watch",
-    "dev:wrangler": "NODE_ENV=development wrangler pages dev ./.vercel/output/static --compatibility-flag=nodejs_compat --compatibility-date=2023-05-04 --d1 DB --ip ::0 --ip 0.0.0.0 --live-reload --persist",
-    "dev": "npx @cloudflare/next-on-pages && run-p -s \"dev:*\"",
+    "dev:next": "npx @cloudflare/next-on-pages",
+    "dev:wrangler": "NODE_ENV=development wrangler pages dev ./.vercel/output/static --compatibility-flag=nodejs_compat --compatibility-date=2023-05-04 --d1 DB --ip ::0 --ip 0.0.0.0 --persist",
+    "dev": "npm run dev:next && npm run dev:wrangler",
     "type-check": "tsc --noEmit"
   }
 }
