@@ -1,20 +1,25 @@
+import React from 'react'
+import { auth } from '../auth'
+import { SignIn } from '../components/SignIn'
+import { SignOut } from '../components/SignOut'
+
 export const runtime = 'edge'
 
-export default async function Page() {
-  console.log(process.env.DB)
-
-  async function handleSubmit() {
-    'use server'
-
-    console.log(process.env.DB)
-  }
+const Page: React.FC = async () => {
+  const session = await auth()
 
   return (
     <div>
-      <h1>Hello, Next.js with Server Actions!</h1>
-      <form action={handleSubmit}>
-        <button type="submit">Call server action</button>
-      </form>
+      <h1>Next.js with Auth.js on Cloudflare Pages Functions</h1>
+      <div>
+        <pre>{JSON.stringify(session, null, 2)}</pre>
+        {session ? (
+          <SignOut>Sign out</SignOut>
+        ) : (
+          <SignIn>Sign in with GitHub</SignIn>
+        )}
+      </div>
     </div>
   )
 }
+export default Page

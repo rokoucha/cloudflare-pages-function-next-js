@@ -1,34 +1,37 @@
 {
   "name": "cloudflare-pages-function-next-js",
-  "packageManager": "npm@9.6.6",
+  "packageManager": "pnpm@8.6.9",
+  "private": true,
   "type": "module",
   "dependencies": {
-    "next": "^13.4.0",
+    "@auth/core": "0.10.0",
+    "next": "^13.4.12",
+    "next-auth": "0.0.0-manual.83c4ebd1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^0.10.1",
-    "@types/node": "^18.16.3",
-    "@types/react": "^18.2.5",
-    "@types/react-dom": "^18.2.3",
-    "better-sqlite3": "^8.3.0",
-    "drizzle-kit": "^0.17.6",
-    "drizzle-orm": "^0.25.4",
-    "eslint-config-next": "^13.4.0",
+    "@cloudflare/next-on-pages": "^1.3.1",
+    "@cloudflare/workers-types": "^4.20230717.1",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "eslint-config-next": "^13.4.12",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.8.8",
-    "rimraf": "^5.0.0",
-    "typescript": "^5.0.4",
-    "vercel": "^28.20.0",
-    "wrangler": "^2.19.0"
+    "rimraf": "^5.0.1",
+    "typescript": "^5.1.6",
+    "vercel": "^31.0.4",
+    "wrangler": "^3.3.0"
   },
   "scripts": {
+    "build:next": "next-on-pages",
     "build": "next build",
     "clean": "rimraf .next .vercel",
-    "dev:next": "npx @cloudflare/next-on-pages",
-    "dev:wrangler": "NODE_ENV=development wrangler pages dev ./.vercel/output/static --compatibility-flag=nodejs_compat --compatibility-date=2023-05-04 --d1 DB --ip ::0 --ip 0.0.0.0 --persist",
-    "dev": "npm run dev:next && npm run dev:wrangler",
-    "type-check": "tsc --noEmit"
+    "dev:next": "next-on-pages -w",
+    "dev:wrangler": "killall workerd || true && NODE_ENV=development wrangler pages dev ./.vercel/output/static --compatibility-date=2023-05-18 --compatibility-flag=nodejs_compat",
+    "dev": "run-s -s build:next dev:wrangler",
+    "lint": "next lint",
+    "start": "next start",
+    "type-check": "tsc --noEmit",
+    "wrangler": "wrangler"
   }
 }
