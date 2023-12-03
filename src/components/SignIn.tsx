@@ -1,5 +1,4 @@
 import React from 'react'
-import { CSRF_experimental } from '../auth'
 
 export type SignInProps = Readonly<
   React.DetailedHTMLProps<
@@ -10,9 +9,8 @@ export type SignInProps = Readonly<
 
 export const SignIn: React.FC<SignInProps> = (props) => {
   return (
-    <form action="/auth/signin/github" method="post">
-      <button {...props} />
-      <CSRF_experimental />
+    <form action="/auth/signin/github" method="get">
+      <button {...props}>Sign in with GitHub</button>
     </form>
   )
 }

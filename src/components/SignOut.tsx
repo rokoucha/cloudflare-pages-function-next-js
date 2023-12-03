@@ -1,5 +1,5 @@
 import React from 'react'
-import { CSRF_experimental } from '../auth'
+import { signOut } from '../auth'
 
 export type SignOutProps = Readonly<
   React.DetailedHTMLProps<
@@ -8,11 +8,15 @@ export type SignOutProps = Readonly<
   >
 >
 
-export const SignOut: React.FC<SignOutProps> = (props: any) => {
+export const SignOut: React.FC<SignOutProps> = (props) => {
   return (
-    <form action="/auth/signout" method="post">
-      <button {...props} />
-      <CSRF_experimental />
+    <form
+      action={async () => {
+        'use server'
+        await signOut()
+      }}
+    >
+      <button {...props}>Sign out</button>
     </form>
   )
 }

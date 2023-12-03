@@ -15,6 +15,6 @@ declare module 'next-auth' {
   }
 }
 
-export const { auth, handlers, CSRF_experimental } = NextAuth({
+export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [GitHub],
 })
